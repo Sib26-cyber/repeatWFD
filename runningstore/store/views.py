@@ -57,8 +57,14 @@ def register_user(request):
             return redirect('home')
         else:
             messages.error(request, "Registration failed. Please try again.")
+<<<<<<< HEAD
             return redirect('register')
     else:        
+=======
+        return redirect('register')
+    else:
+        
+>>>>>>> 3371a0938f88fcd24974325caa10873009ee2975
         return render(request, 'register.html', {'form': form})
     
 def product(request, pk):

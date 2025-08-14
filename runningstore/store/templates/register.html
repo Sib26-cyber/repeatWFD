@@ -19,6 +19,7 @@
             <br/>
             <h2>Registration Form</h2> 
             <form method="post" action="{% url 'register' %}" >
+<<<<<<< HEAD
     {% csrf_token %}
 
     {{ form.as_p }}
@@ -32,20 +33,24 @@
             <strong>Error!</strong> Please correct the errors below.
         </div>
     {% endif %}
+=======
+              {% csrf_token %}
+
+              {{ form.as_p }}
+
+              <button type="submit" class="btn btn-primary">Register</button>
+  
+
+>>>>>>> 3371a0938f88fcd24974325caa10873009ee2975
 </form>
 </br>
-            <p>Don't have an account? </p>
+            
         </div>
         </center>
       </div>
     </div>
     <br/>
-    <br/>
-
-
-
-
-        
+    <br/>    
 
          
 
