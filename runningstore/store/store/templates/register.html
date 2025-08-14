@@ -1,0 +1,54 @@
+<!{% extends 'base.html' %}
+{% block content %} 
+<!-- Header-->
+    <header class="bg-dark py-5">
+      <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder">Register</h1>
+          <p class="lead fw-normal text-white-50 mb-0">
+           <em> Please enter your details to register.</em>
+            </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="container ">
+      <div class="row">
+        <center>
+        <div class="col-md-6 ">
+            <br/>
+            <h2>Registration Form</h2> 
+            <form method="post" action="{% url 'register' %}" >
+    {% csrf_token %}
+
+    {{ form.as_p }}
+  </br></br>
+  
+    <button type="submit" class="btn btn-primary">Register</button>
+    <br/>
+    <br/>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Error!</strong> Please correct the errors below.
+        </div>
+    {% endif %}
+</form>
+</br>
+            <p>Don't have an account? </p>
+        </div>
+        </center>
+      </div>
+    </div>
+    <br/>
+    <br/>
+
+
+
+
+        
+
+         
+
+
+{% endblock content %}
+
