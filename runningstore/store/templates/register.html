@@ -20,17 +20,18 @@
             <h2>Registration Form</h2> 
             <form method="post" action="{% url 'register' %}" >
     {% csrf_token %}
-  <div class="mb-3">
-    
-    <input type="text" class="form-control" name="username" placeholder="Enter your username">
-    
-  </div>
-  <div class="mb-3">
-   
-    <input type="password" class="form-control" name="password" placeholder="Enter your password">
-  </div>
+
+    {{ form.as_p }}
+  </br></br>
   
-  <button type="submit" class="btn btn-secondary">Login</button>
+    <button type="submit" class="btn btn-primary">Register</button>
+    <br/>
+    <br/>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Error!</strong> Please correct the errors below.
+        </div>
+    {% endif %}
 </form>
 </br>
             <p>Don't have an account? </p>
