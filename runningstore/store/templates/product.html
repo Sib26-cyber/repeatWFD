@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {% extends 'base.html' %} 
 {% block content %}
 
@@ -17,14 +17,18 @@
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">
             {{ product.description }}
-          </p>
-          <p class="card-text">
-            <small class="text-muted">Last updated {{ product.updated_at }}</small>
-
+          </p>    
+          {% if product.is_sale %}   
             <p class="card-text">
-                <strong>Price: </strong>€{{ product.price|floatformat:2 }}
-                <br />                
+                <strong class="text-danger">Sale Price: </strong>€{{ product.sale_price|floatformat:2 }}
+                <br />
+                <strong>Original Price: </strong><span style="text-decoration: line-through;">€{{ product.price|floatformat:2 }}</span>
             </p>
+          {% else %}
+
+          {% endif %}
+           
+                
             <a href="{% url 'home' %}" class="btn btn-primary">Back to Products</a>
             </center>
           </p>
@@ -36,20 +40,3 @@
 </br>
 </br>
 {% endblock content %}
-=======
-{% extends 'base.html' %} {% block content %}
-<!-- Header-->
-
-<div class="container">
-  <div class="row">
-    <center>
-      <div class="col-md-12">
-        <p>
-          Have questions or need assistance? Feel free to reach out to us at:
-          <br />Email:therunningstore@gmail.com {% endblock content %}
-        </p>
-      </div>
-    </center>
-  </div>
-</div>
->>>>>>> 3371a0938f88fcd24974325caa10873009ee2975
