@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from.forms import SignUpForm
+from django.core.exceptions import ObjectDoesNotExist
+from .models import Category
 
 def home(request):
     # Fetch all products from the database
@@ -69,15 +71,24 @@ def product(request, pk):
     return render(request, 'product.html', {'product': product})
 
 def category(request, foo):
-    # Replace hyphens with spaces in the category name in the url
-    foo = foo.replace('-', ' ')
-    # Fetch products that belong to the specified category
-    try:
-        # Fetch products that match the category name
-        category = Category.objects.get(name=foo)
-        products = Product.objects.filter(category=category)
-        return render(request, 'category.html', {'products': products, 'category': category})   
+    # Replace hyphens with spaces in the category name from the URL
+    category_name = foo.replace('-', ' ')
     
-    except:
-        messages.success(request, ("That category doesn't exist"))
+    try:
+        category = Category.objects.get(name__iexact=category_name)
+        products = Product.objects.filter(category=category)
+        return render(request, 'category.html', {
+            'products': products,
+            'category': category
+        })
+    
+    except ObjectDoesNotExist:
+        messages.error(request, "That category doesn't exist")
         return redirect('home')
+    
+def category_summary(request):
+    categories = Category.objects.all()
+    return render(request, 'category_summary.html', {'categories': categories}) 
+    
+def update_user(request):
+    return render(request, 'update_user.html', {})

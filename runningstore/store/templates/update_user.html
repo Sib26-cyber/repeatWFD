@@ -4,9 +4,9 @@
     <header class="bg-dark py-5">
       <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-          <h1 class="display-4 fw-bolder">Register</h1>
+          <h1 class="display-4 fw-bolder">Update Profile</h1>
           <p class="lead fw-normal text-white-50 mb-0">
-           <em> Please register your details here .</em>
+           <em>Update User Profile.... </em>
             </p>
         </div>
       </div>
@@ -18,13 +18,13 @@
         <div class="col-md-6 ">
             <br/>
             <h2>Registration Form</h2> 
-            <form method="post" action="{% url 'register' %}" >
+            <form method="post" action="{% url 'update_user' %}" >
     {% csrf_token %}
 
     {{ form.as_p }}
   </br></br>
   
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="submit" class="btn btn-primary">Update Profile</button>
     <br/>
     <br/>
     {% if form.errors %}
