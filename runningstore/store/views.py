@@ -9,6 +9,7 @@ from.forms import SignUpForm, UpdateUserForm, ChangePasswordForm
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Category
 
+
 def update_password(request):
     if request.user.is_authenticated:
         current_user = request.user
