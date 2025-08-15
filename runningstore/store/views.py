@@ -67,3 +67,17 @@ def register_user(request):
 def product(request, pk):
     product = Product.objects.get(id=pk)
     return render(request, 'product.html', {'product': product})
+
+def category(request, foo):
+    # Replace hyphens with spaces in the category name in the url
+    foo = foo.replace('-', ' ')
+    # Fetch products that belong to the specified category
+    try:
+        # Fetch products that match the category name
+        category = Category.objects.get(name=foo)
+        products = Product.objects.filter(category=category)
+        return render(request, 'category.html', {'products': products, 'category': category})   
+    
+    except:
+        messages.success(request, ("That category doesn't exist"))
+        return redirect('home')
