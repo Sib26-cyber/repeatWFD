@@ -74,7 +74,7 @@ def category(request, foo):
     # Fetch products that belong to the specified category
     try:
         # Fetch products that match the category name
-        category = Category.objects.get(name=foo)
+        category = category.objects.get(name=foo)
         products = Product.objects.filter(category=category)
         return render(request, 'category.html', {'products': products, 'category': category})   
     
