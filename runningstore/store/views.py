@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from.forms import SignUpForm, UpdateUserForm,ChangePasswordForm
+from.forms import SignUpForm, UpdateUserForm, ChangePasswordForm
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Category
 
@@ -14,11 +14,10 @@ def update_password(request):
         current_user = request.user
         #did they fill out the form
         if request.method =='POST':
-            foo = current_user
-
+            pass 
         else:
             form = ChangePasswordForm(current_user)
-            return render(request, "update_password.html", {'form':form })
+            return render(request, "update_password.html", {'form': form })
     else:
         messages.success(request,"You Need To Be Logged in Tp View That!!")
         return redirect('home')
