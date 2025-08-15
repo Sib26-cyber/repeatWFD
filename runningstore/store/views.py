@@ -5,9 +5,30 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from.forms import SignUpForm
+from.forms import SignUpForm, UpdateUserForm,ChangePasswordForm
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Category
+
+def update_password(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+        #did they fill out the form
+        if request.method =='POST':
+            foo = current_user
+
+        else:
+            form = ChangePasswordForm(current_user)
+            return render(request, "update_password.html", {'form':form })
+    else:
+        messages.success(request,"You Need To Be Logged in Tp View That!!")
+        return redirect('home')
+
+
+
+
+
+
+
 
 def home(request):
     # Fetch all products from the database
@@ -91,4 +112,22 @@ def category_summary(request):
     return render(request, 'category_summary.html', {'categories': categories}) 
     
 def update_user(request):
-    return render(request, 'update_user.html', {})
+
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        user_form = UpdateUserForm(request.POST or None, instance=current_user)
+
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request, "Your profile has been updated successfully.")
+            login(request, current_user)
+            return redirect('home')
+
+        
+        return render(request, 'update_user.html', {'user_form': user_form})
+    else:
+        messages.error(request, "You need to be logged in to update your profile.")
+        return redirect('login')
+
+def update_password(request):
+    return render(request, "update_password.html", {})
