@@ -1,38 +1,16 @@
 from django.shortcuts import render, redirect
-from .models import Product # Import the Product model
+from .models import Product, Category# Import the Product model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django import forms
 from.forms import SignUpForm, UpdateUserForm, ChangePasswordForm
-from django.core.exceptions import ObjectDoesNotExist
-from .models import Category
+from django import forms
 
 
-def update_password(request):
-    if request.user.is_authenticated:
-        current_user = request.user
-        #did they fill out the form
-        if request.method =='POST':
-            form = ChangePasswordForm(current_user,request.POST)
-         #is the form valid
-            if form.is_valid():
-                form.save()   
-                messages.success(request,"Your password has been updated, Please log in again...")
-                return redirect('login')
-            else:
-                for error in list(form.errors.values()):
-                    messages.error(request, error)
-                    
-        else:
-            form = ChangePasswordForm(current_user)
-            return render(request, "update_password.html", {'form': form })
-    else:
-        messages.success(request,"You Need To Be Logged in Tp View That!!")
-        return redirect('home')
+        
 
-
+# Create your views here.              
 
 def home(request):
     # Fetch all products from the database
@@ -42,10 +20,11 @@ def home(request):
     """
     return render(request, 'home.html', {'products': products})
 
-# Create your views here.
-def about(request):
-    
+
+def about(request):    
     return render(request, 'about.html', {})
+
+
 
 def login_user(request): 
     if request.method == 'POST':
@@ -58,16 +37,15 @@ def login_user(request):
             messages.success(request, "You have been logged in successfully.")
             return redirect('home')
         else:
-            messages.error(request, "Invalid username or password.")   
-    
+            messages.error(request, "Invalid username or password.")       
     return render(request, 'login.html', {})
 
 
 def logout_user(request):
-
     logout(request)
     messages.success(request, "You have been logged out successfully.")
     return redirect( 'home')
+
 
 def register_user(request):
     form = SignUpForm
@@ -84,7 +62,7 @@ def register_user(request):
             return redirect('home')
         else:
             messages.error(request, "Registration failed. Please try again.")
-            return redirect('register')      
+            return redirect('register')   
     
     else:
         
@@ -134,15 +112,30 @@ def update_user(request):
         return redirect('login')
     
 
+
+    
 def update_password(request):
     if request.user.is_authenticated:
         current_user = request.user
-        #did they fill out the form?
-        if request.method=='POST':
-            foo = current_user
-        else:            
-            form = ChangePasswordForm(current_user)        
-            return render(request, "update_password.html", {'form': form })
+        #did they fill out the form
+        if request.method =='POST':
+            form = ChangePasswordForm(current_user, request.POST)
+            if form.is_valid():
+                user= form.save()                
+                messages.success(request, "Your password has been Updated", "Please log in again")              
+                return redirect('login')
+            
+            else:
+                for error in list( form.errors.values()):
+                    messages.error(request, error)                
+                return render(request,"update_password.html", {'form:form'})
+            
+        else: #GET request
+            form = ChangePasswordForm(user= current_user)
+            return render(request, "update_password.html", {'form': form})
     else:
         messages.success(request, "You must be logged in to view that page")
-        return redirect('home')
+        return redirect('login')
+    
+
+        
