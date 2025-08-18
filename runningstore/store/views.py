@@ -128,7 +128,7 @@ def update_password(request):
             else:
                 for error in list( form.errors.values()):
                     messages.error(request, error)                
-                return render(request,"update_password.html", {'form:form'})
+                return render(request,"update_password.html", {'form':form})
             
         else: #GET request
             form = ChangePasswordForm(user= current_user)
