@@ -11,6 +11,10 @@ urlpatterns = [
     path('update_password/', views.update_password, name='update_password'),  # password change page
     path('update_user/', views.update_user, name='update_user'),  # Update user page
     path('product/<int:pk>/', views.product, name='product'),  # Product page
-    path('category/<str:foo>/', views.category, name='category')  # Category page
+    path('category/<str:foo>/', views.category, name='category'),  # Category page
+    path('category_summary/',views.category_summary, name='category_summary'),
+    path('update_info/', views.update_info, name='update_info'),  # Update profile page info
     
-]
+    
+    
+]   
