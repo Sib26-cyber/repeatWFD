@@ -18,7 +18,7 @@
         <div class="col-md-6 ">
             <br/>
             <h2>Registration Form</h2> 
-            <form method="post" action="{% url 'register' %}" >
+            <form method="POST" action="{% url 'register' %}" >
     {% csrf_token %}
 
     {{ form.as_p }}
