@@ -13,6 +13,56 @@
         </div>
       </div>
     </header>
+    <br/>
+    <div class = "container">   
+      {% if cart_products%}   
+        {% for product in cart_products %}
+        
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.name }}" />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+            <center>
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">
+            {{ product.description }}
+          </p>    
+          {% if product.is_sale %}   
+            <p class="card-text">
+                <strong class="text-danger">Sale Price: </strong>€{{ product.sale_price|floatformat:2 }}
+                <br />
+                <strong>Original Price: </strong><span style="text-decoration: line-through;">€{{ product.sale_price|floatformat:2 }}</span>
+            </p>
+          {% else %}
+          €{{ product.price }}
+          </br>
+          <br/>
+          
+
+          {% endif %}
+           
+                
+            <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+            
+          </center>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+        {% endfor %}
+        {% else %}
+        <center>
+       <h2><em> There's nothing in your Cart.....</em></h2>
+        </center>
+    </div>
+    <br/><br/><br/><br/><br/><br/>    
+<br/>
+{% endif %}
     
 </br></br></br></br>
   {% endblock content %}
