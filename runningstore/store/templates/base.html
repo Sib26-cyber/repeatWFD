@@ -7,8 +7,12 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
-      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Shop Homepage - The Running Store</title>
@@ -25,24 +29,23 @@
     />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link
-    href="{% static 'startbootstrap-shop-homepage-gh-pages/css/styles.css' %}"
-    rel="stylesheet"
+      href="{% static 'startbootstrap-shop-homepage-gh-pages/css/styles.css' %}"
+      rel="stylesheet"
     />
   </head>
   <body>
-      {% include 'navbar.html' %}
-      {% if messages %}
-          {% for message in messages %}
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  {{ message }}  
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-    
-          {% endfor %}
-      {% endif %}
-      {% block content %}
-    
-      {% endblock content %}
+    {% include 'navbar.html' %} {% if messages %} {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+
+    {% endfor %} {% endif %} {% block content %} {% endblock content %}
     <!-- Footer-->
     <footer class="py-5 bg-dark">
       <div class="container">

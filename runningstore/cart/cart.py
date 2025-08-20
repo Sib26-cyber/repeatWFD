@@ -12,7 +12,7 @@ class Cart():
     #Make sure cart is available on all pages of the site
         self.cart = cart
     def add(self, product):
-        product_id = str(product_id)
+        product_id = str(product.id)
 
         #Logic
         if product_id in self.cart:
@@ -20,3 +20,7 @@ class Cart():
         else:
             self.cart[product_id] = {'price': str(product.price)}
         self.session.modified = True
+
+        #counts the items in the cart 
+    def __len__(self):
+        return len(self.cart)

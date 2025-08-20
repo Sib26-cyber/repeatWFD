@@ -28,7 +28,7 @@
           €{{ product.price }}
           </br>
           <br/>
-          ID: {{product.id}}
+          
 
           {% endif %}
            
@@ -53,15 +53,17 @@ $(document).on('click', '#add-cart', function(e){
               url: '{% url 'cart_add' %}',
               data: { 
                 product_id:$('#add-cart').val(), 
-                csrfmiddlewaretoken:'{{ csrf_token }}'
+                csrfmiddlewaretoken:'{{ csrf_token }}',
                 action: 'post'
                     },  
                     success: function (json){
-                      console.log(json)
+                      //console.log(json)
+                      document.getElement.Id("cart_quantity").textContent = json.qty
+                      
                     },
                     
                     error: function(xhr, errmsg, err){
-                      
+
                     }
           });
 })
