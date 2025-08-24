@@ -42,10 +42,33 @@ def cart_add(request):
 
 
 def cart_delete(request):
-    pass
+    cart = Cart(request)
+    if request.POST.get('action')=='post':
+        product_id = str(request.POST.get('product_id'))
+        
+        #lookup product in DB
+
+        #Update the session cart
+        cart.delete(product=product_id)
+        #Get the cart qty
+        
+        response = JsonResponse ({'product_id':product_id})
+        return response
 
 
 
 
 def cart_update(request):
-    pass
+    cart = Cart(request)
+    if request.POST.get('action')=='post':
+        product_id = int(request.POST.get('product_id'))
+        product_qty = int(request.POST.get('product_qty'))
+        #lookup product in DB
+
+        #Update the session cart
+        cart.update(product=product_id, quantity=product_qty)
+        #Get the cart qty
+        
+        response = JsonResponse({'qty':product_qty})
+        return response
+        #return redirect("cart:summary")
