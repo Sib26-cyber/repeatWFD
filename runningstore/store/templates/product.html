@@ -22,7 +22,7 @@
             <p class="card-text">
                 <strong class="text-danger">Sale Price: </strong>€{{ product.sale_price|floatformat:2 }}
                 <br />
-                <strong>Original Price: </strong><span style="text-decoration: line-through;">€{{ product.sale_price|floatformat:2 }}</span>
+                <strong>Original Price: </strong><span style="text-decoration: line-through;">€{{ product.price|floatformat:2 }}</span>
             </p>
           {% else %}
           €{{ product.price }}
