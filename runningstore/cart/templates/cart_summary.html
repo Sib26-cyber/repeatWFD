@@ -38,14 +38,39 @@
             </p>
           {% else %}
           €{{ product.price }}
-          </br>
-          <br/>
-          
 
           {% endif %}
-           
-                
+          </br>
+          <br/>
+
+           <div class="row justify-content-center">
+            <div class ="col-md-2">Quantity:</div>
+            <div class="col-md-2"> 
+
+          <select class="form-select form-select-sm" " id="select{{product.id}}" >  
+            
+            {% for key, value in quantities.items %}
+                {% if key == product.id|slugify %}
+            <option selected> {{ value }}</option>
+                {% endif %}
+            {% endfor %}    
+                       
+            
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          </div>
+          </div>          
+
+          
+          </br>                  
+               
             <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+            <button type="button" data-index="{{product.id}}""
+            class="btn btn-secondary update-cart">Update</button>
             
           </center>
           
@@ -53,6 +78,7 @@
       </div>
     </div>
   </div>
+       
 
         {% endfor %}
         {% else %}
@@ -62,7 +88,7 @@
     </div>
     <br/><br/><br/><br/><br/><br/>    
 <br/>
-{% endif %}
+  {% endif %}  
     
 </br></br></br></br>
-  {% endblock content %}
+{% endblock content %}
