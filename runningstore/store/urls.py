@@ -14,6 +14,7 @@ urlpatterns = [
     path('category/<str:foo>/', views.category, name='category'),  # Category page
     path('category_summary/',views.category_summary, name='category_summary'),
     path('update_info/', views.update_info, name='update_info'),  # Update profile page info
+    path('items/', views.item_list, name='item_list'),  # Item list page    
     
     
     

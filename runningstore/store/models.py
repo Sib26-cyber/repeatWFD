@@ -92,14 +92,22 @@ class Order(models.Model):
 
 class Refund(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    return_request = models.OneToOneField(Return, on_delete=models.SET_NULL, null=True, blank=True)    
     reason = models.TextField()
     refund_date = models.DateTimeField(auto_now_add=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    processed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Refund for Order {self.order.id} - {self.reason[:50]}"
     
 class Return(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Rejected', 'Rejected'),
+        ('Completed', 'Completed'),
+    ]
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     reason = models.TextField()
     return_date = models.DateTimeField(auto_now_add=True)
@@ -108,6 +116,18 @@ class Return(models.Model):
     def __str__(self):
         return f"Return for Order {self.order.id} - {self.reason[:50]}"
 
+class Item(models.Model):
+    title = models.CharField(max_length=100)   
+    price = models.FloatField()   
+
+    def __str__(self):
+        return self.title
+    
+class OrderItem(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.item.title
 
 
 
