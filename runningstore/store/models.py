@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from django.contrib.auth.models import User
+from django.conf import settings
 
 from django.db.models.signals import post_save 
 
@@ -25,10 +26,6 @@ def create_profile(sender, instance, created, **kwargs):
         user_profile.save()
 #Automate the profile
 post_save.connect(create_profile, sender = User)
-
-
-
-
 
 
 class Category(models.Model):
@@ -73,7 +70,7 @@ class Customer(models.Model):
 
     
 class Order(models.Model):
-    customer = models.ForeignKey(Customer,on_delete=models.CASCADE, max_length=200)
+    customer = models.ForeignKey(Customer,settings.AUTH_USER_MODEL,on_delete=models.CASCADE, max_length=200)
     customer_email = models.EmailField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
@@ -83,6 +80,7 @@ class Order(models.Model):
     order_date = models.DateTimeField(default=datetime.datetime.now)
     status = models.BooleanField(max_length=50, default='False')
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    ordered = models.BooleanField(default=False)
 
 
     def __str__(self):
@@ -109,7 +107,17 @@ class Return(models.Model):
         return f"Return for Order {self.order.id} - {self.reason[:50]}"
 
 
+class Item(models.Model):
+    title = models.CharField(max_length=100)   
+    price = models.FloatField()   
 
+    def __str__(self):
+        return self.title
+    
+class OrderItem(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.item.title
 
-# Create your models here.
+    
