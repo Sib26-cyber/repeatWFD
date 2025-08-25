@@ -33,11 +33,12 @@
           {% if product.is_sale %}   
             <p class="card-text">
                 <strong class="text-danger">Sale Price: </strong>€{{ product.sale_price|floatformat:2 }}
-                <br />
-                <strong>Original Price: </strong><span style="text-decoration: line-through;">€{{ product.sale_price|floatformat:2 }}</span>
-            </p>
-          {% else %}
-          €{{ product.price }}
+            <strong>Original Price: </strong>
+            <span style="text-decoration: line-through;">€{{ product.price|floatformat:2 }}</span>
+            </p>               
+               
+                
+          
 
           {% endif %}
           </br>
@@ -87,14 +88,18 @@
        
 
         {% endfor %}
+        <h3>Total: €{{ totals }}</h3> 
         {% else %}
+       
         <center>
        <h2><em> There's nothing in your Cart.....</em></h2>
         </center>
+       
     </div>
     <br/><br/><br/><br/><br/><br/>    
   <br/>
   {% endif %}  
+   
   </div>
     
 <script>

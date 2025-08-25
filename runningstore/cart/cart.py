@@ -13,6 +13,27 @@ class Cart():
 
     #Make sure cart is available on all pages of the site
         self.cart = cart
+
+
+    def cart_total(self):
+         #get the productIDs
+        product_ids = self.cart.keys()
+        #Use ids to lookup products in the database model
+        products = Product.objects.filter(id__in=product_ids)
+        quantities = self.cart
+        #start with zero
+        total = 0
+        for key, value in quantities.items():
+            #convert key string into an integer
+            key = int(key)
+            for product in products:
+                if product.id == key:
+                    key = int(key)
+                    price = product.sale_price if product.sale_price else product.price
+                    total += price * value
+                    return total
+                
+                
     def add(self, product, quantity):
         product_id = str(product.id)
         product_qty = str(quantity)
