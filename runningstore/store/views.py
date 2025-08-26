@@ -1,11 +1,16 @@
-from django.shortcuts import render, redirect
-from .models import Product, Category, Profile, Item, OrderItem
+from django.shortcuts import render,get_object_or_404, redirect
+from .models import Product, Category, Profile, Item, Order, Return, Refund
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from.forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
 from django import forms
+from django.utils import timezone
+from django.db.models import Q
+import json
+from cart.cart import Cart
+
 
 
         
@@ -24,6 +29,22 @@ def home(request):
 def about(request):    
     return render(request, 'about.html', {})
 
+def search(request):
+    #check if the form has been submitted
+    if request.method == "POST":
+        searched = request.POST['searched']
+        #Query the products database model to find products that match the search term
+        searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched) | Q(category__name__icontains=searched))
+        #Test for null
+        if not searched:
+            messages.info(request, "No products matched your search criteria. Please try again.")
+        #look for products that match the search term
+        return render(request, 'search.html', {'searched': searched})
+    else:
+        return render(request, 'search.html', {})
+    
+    return render(request, 'search.html', {})
+
 
 
 def login_user(request): 
@@ -34,6 +55,18 @@ def login_user(request):
         
         if user is not None:
             login(request, user)
+            #Do some shopping cart stuff here
+            current_user = Profile.objects.get(user__id = request.user.id)
+            #Get the old cart from the Database
+            saved_cart = current_user.old_cart
+            #Convert the string to a dictionary
+            if saved_cart:
+                converted_cart = json.loads(saved_cart)
+                cart =Cart(request)
+                #Loop through the dictionary and add items to the cart
+                for key, value in converted_cart.items():
+                    cart.db_add(product=key, quantity=value)
+
             messages.success(request, "You have been logged in successfully.")
             return redirect('home')
         else:
@@ -84,14 +117,16 @@ def category(request, foo):
             'products': products,
             'category': category
         })
-    
-    except ObjectDoesNotExist:
-        messages.error(request, "That category doesn't exist")
+    except Category.DoesNotExist:
+        messages.error(request, "Category not found.")
         return redirect('home')
+    
+    
     
 def category_summary(request):
     categories = Category.objects.all()
     return render(request, 'category_summary.html', {'categories': categories}) 
+
     
 def update_user(request):
 
@@ -156,4 +191,38 @@ def item_list(request):
     context = {'items': Item.objects.all()}
         
     return render(request, 'item_list.html',context)
-        
+
+def request_return(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    if request.method == "POST":
+        reason = request.POST.get("reason")
+        Return.objects.create(order=order, reason=reason)
+        return redirect("order_history")  # redirect to a page showing orders
+    return render(request, "request_return.html", {"order": order})
+
+def process_return(request, return_id, action):
+    return_request = get_object_or_404(Return, id=return_id)
+    if action == "approve":
+        return_request.status = "Approved"
+    elif action == "reject":
+        return_request.status = "Rejected"
+    return_request.save()
+    return redirect("return_list")
+
+def issue_refund(request, return_id):
+    return_request = get_object_or_404(Return, id=return_id, status="Approved")
+    order = return_request.order
+
+    Refund.objects.create(
+        order=order,
+        return_request=return_request,
+        reason=return_request.reason,
+        amount=order.total_amount,  # refund full amount for simplicity
+        refund_date=timezone.now(),
+        processed=True
+    )
+    return_request.status = "Completed"
+    return_request.save()
+
+    return redirect("refund_list")
+
