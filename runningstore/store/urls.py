@@ -9,12 +9,14 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout'),  # Logout page
     path('register/', views.register_user, name='register'), 
     path('update_password/', views.update_password, name='update_password'),  # password change page
-    path('update_user/', views.update_user, name='update_user'),  # Update user page
+    path('update_user/', views.update_user, name='update_user'),
+    path('search/',views.search, name='search'),# Update user page
     path('product/<int:pk>/', views.product, name='product'),  # Product page
     path('category/<str:foo>/', views.category, name='category'),  # Category page
     path('category_summary/',views.category_summary, name='category_summary'),
     path('update_info/', views.update_info, name='update_info'),  # Update profile page info
-    path('items/', views.item_list, name='item_list'),  # Item list page    
+    path('items/', views.item_list, name='item_list'),  # Item list page 
+    path('request_return/', views.request_return, name='request_return'),  # Request refund page
     
     
     
