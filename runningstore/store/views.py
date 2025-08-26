@@ -180,7 +180,7 @@ def update_info(request):
         #Get the current user's profile
         current_user = Profile.objects.get(user__id = request.user.id)
         #Get Current Users Shipping Info
-        shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
+        shipping_user = ShippingAddress.objects.get(shipping_user__id=request.user.id)
         #Get original user info
         form = UserInfoForm(request.POST or None, instance = current_user)        
         
