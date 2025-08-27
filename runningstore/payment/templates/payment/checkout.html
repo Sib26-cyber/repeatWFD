@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load cart_extras %} {% block content %}
 <!-- Header-->
 <header class="bg-dark py-5">
   <div class="container px-4 px-lg-5 my-5">
@@ -17,11 +17,18 @@
       <div class="card">
         <div class="card-header">Order Summary</div>
         <div class="card-body">
-          {% for product in cart_products %} {{ product.name }} {% if
-          product.is_sale %} {{ product.sale_price|floatformat:2 }} {% else %}
-          {{ product.price|floatformat:2 }} {% endif %} Quantity:
-          {{quantities|get_item:product.id|slugify }} - Price:
-          €{{product.price|floatformat:2 }} {% endfor %}
+          {% for product in cart_products %} {{ product.name }}<br />
+          {% if product.is_sale %} €{{ product.sale_price }} {% else %}
+          €{{product.price }} {% endif %} Quantity:
+          {{quantities|get_item:product.id }} <br />
+          {% endfor %}
+          <br />
+          <br />
+
+          <strong>Total Price: €{{ total_price|floatformat:2 }}</strong>
+          <br />
+
+          <br />
         </div>
       </div>
     </div>
