@@ -85,9 +85,12 @@ def process_order(request):
         return redirect('home')       
         
     else:
-
-        messages.error(request, "Access Denied!")
+        #not logged in 
+        create_order = Order.objects.create( full_name=full_name, email=email, shipping_address=shipping_address, amount_paid=amount_paid)
+        create_order.save()
+        messages.success(request, "not logged in ")
         return redirect('home')
+        else: 
 
         
         
