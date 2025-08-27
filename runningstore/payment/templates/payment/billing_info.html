@@ -21,8 +21,8 @@
             >Price</small
           >: {% if product.is_sale %} €{{ product.sale_price }} {% else %}
           €{{product.price }} {% endif %}
-          <br />
-          <small>Quantity: {{quantities|get_item:product.id }} </small><br />
+          <br />{{quantities|get_item:product.id }}
+          <small>Quantity:  </small><br />
           {% endfor %}
           <br />
           <br />
