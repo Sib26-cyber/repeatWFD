@@ -17,17 +17,23 @@
       <div class="card">
         <div class="card-header">Order Summary</div>
         <div class="card-body">
-          {% for product in cart_products %} {{ product.name }}<br />
-          {% if product.is_sale %} €{{ product.sale_price }} {% else %}
-          €{{product.price }} {% endif %} Quantity:
-          {{quantities|get_item:product.id }} <br />
+          {% for product in cart_products %} {{ product.name }}<br /><small
+            >Price</small
+          >: {% if product.is_sale %} €{{ product.sale_price }} {% else %}
+          €{{product.price }} {% endif %}
+          <br />
+          <small>Quantity: {{quantities|get_item:product.id }} </small><br />
           {% endfor %}
           <br />
           <br />
 
-          <strong>Total Price: €{{ total_price|floatformat:2 }}</strong>
+          <strong>Total Price: €{{ totals }}</strong>
           <br />
-
+          <a
+            href="{% url 'cart_summary' %}"
+            class="btn btn-sm btn-outline-secondary"
+            >Update items</a
+          >
           <br />
         </div>
       </div>
