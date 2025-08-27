@@ -3,9 +3,9 @@
 <header class="bg-dark py-5">
   <div class="container px-4 px-lg-5 my-5">
     <div class="text-center text-white">
-      <h1 class="display-4 fw-bolder">Checkout</h1>
+      <h1 class="display-4 fw-bolder">Billing Info</h1>
       <p class="lead fw-normal text-white-50 mb-0">
-        <em> Review Your Order....</em>
+        <em> Enter Your Payment Info </em>
       </p>
     </div>
   </div>
@@ -45,15 +45,14 @@
 <div class="card">
   <div class="card-header">Shipping Info</div>
   <div class="card-body">
-    <form method ="POST" action = "{% url 'billing_info' %}">
-      {% csrf_token %}
-      {{shipping_form.as_p }}
+
+      {{shipping_form}}
 
     </div>
 </div>
 <br />
 
-  <button type ="submit" class="btn btn-secondary">Proceed To Billing</button>
+  <a href="#" class="btn btn-secondary">Pay Here</a>
 </form>
 </center>
 <br />
