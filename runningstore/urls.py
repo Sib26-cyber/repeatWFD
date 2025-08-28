@@ -11,6 +11,6 @@ urlpatterns = [
     path('', include('store.urls')),# Include URLs from the store app      
     path('cart/', include('cart.urls')),
     path('payment/', include('payment.urls')), 
-    path("returns/", include("returns.urls")),# Include URLs from the returns app
+    path('returns/', include('returns.urls' , namespace= 'returns')),# Include URLs from the returns app
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Serve media files in development
