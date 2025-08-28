@@ -102,7 +102,11 @@ def process_order(request):
             
             
                         Create_order_item = OrderItem.objects.create(order_id=order_id, product_id=product_id, user = user, quantity=value, price=price)
-                        Create_order_item.save()                                           
+                        Create_order_item.save() 
+            #Deleting the Cart
+            for key in list(request.session.keys()):
+                if key =="session_key":
+                    del request.session[key]                                                     
                                       
                 
             messages.success(request, "Order Processed Successfully!")
