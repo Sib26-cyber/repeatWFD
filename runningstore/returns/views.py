@@ -31,7 +31,6 @@ def create_return_request(request, order_id):
 
     return render(request, "returns/create.html", {"order": order, "form": form})
 
-@login_required
 def my_returns(request):
     qs = ReturnRequest.objects.filter(requested_by=request.user).select_related("order", "order_item")
     return render(request, "returns/my_returns.html", {"returns": qs})
