@@ -61,7 +61,7 @@ def checkout(request):
         return render(request, "payment/checkout.html",{"cart_products":cart_products, "quantities":quantities, "totals":totals })
                    
 def process_order(request):
-         if request.POST:
+         if request.method == "POST":
             #Get cart details
             cart = Cart(request)
             cart_products = cart.get_prods
@@ -80,7 +80,7 @@ def process_order(request):
             #Get cart details
             user = request.user if request.user.is_authenticated else None
             create_order = Order.objects.create(user=user, full_name=full_name, email=email, shipping_address=shipping_address, amount_paid=amount_paid)
-            create_order.save()
+            
             
             #Create Order Items
             order_id = create_order.pk
@@ -95,25 +95,23 @@ def process_order(request):
                     price = product.price
                     
                 for key, value in quants.items():
-                    if int(key) == product.id:                               
+                    if int(key) == product.id:                     
             
-            
-            
-            
+                      
             
                         Create_order_item = OrderItem.objects.create(order_id=order_id, product_id=product_id, user = user, quantity=value, price=price)
                         Create_order_item.save() 
-            #Deleting the Cart
-            for key in list(request.session.keys()):
-                if key =="session_key":
-                    del request.session[key]                                                     
+                        #Deleting the Cart
+                        for key in list(request.session.keys()):
+                         if key =="session_key":
+                            del request.session[key]                                                     
                                       
                 
             messages.success(request, "Order Processed Successfully!")
             return redirect('home')     
             
         
-         else:             
+         #else:             
             #not logged in 
             create_order = Order.objects.create( full_name=full_name, email=email, shipping_address=shipping_address, amount_paid=amount_paid)
             create_order.save()
