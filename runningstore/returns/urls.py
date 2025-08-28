@@ -4,7 +4,7 @@ from . import views
 app_name = "returns"
 
 urlpatterns = [
-    path("my/", views.my_returns, name="my_returns"),
+    path("my_returns/", views.my_returns, name="my_returns"),
     path("create/", views.create_return_request, name="create"),
 
     path("queue/", views.queue, name="queue"),
