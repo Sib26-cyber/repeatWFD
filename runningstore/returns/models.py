@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from payment.models import Order, OrderItem
+
 
 # Create your models here.
 class ReturnsStatus(models.TextChoices):
