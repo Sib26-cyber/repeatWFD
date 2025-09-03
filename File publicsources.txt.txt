@@ -1,0 +1,29 @@
+File: /public/sources.txt
+
+Hoka.com 
+adidas.com 
+nike.com 
+amazon.co.uk
+Asics.com
+Temu
+all images found using right click and visual search with bing  
+
+Referenced Django docs, Visual studio code Django tutorial, Module notes, and Django tutorial and docs
+
+used Bootstrap docs, startbootstrap homepage template 
+
+used descriptions of products from the above websites with some paraphrasingFile: /public/sources.txt
+
+Hoka.com 
+adidas.com 
+nike.com 
+amazon.co.uk
+Asics.com
+Temu
+all images found using right click and visual search with bing  
+
+Referenced Django docs, Visual studio code Django tutorial, Module notes, and Django tutorial and docs
+
+used Bootstrap docs, startbootstrap homepage template 
+
+used descriptions of products from the above websites with some paraphrasing
