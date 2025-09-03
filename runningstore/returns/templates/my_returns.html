@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Header-->
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Return Request Form</h1>
+      <h2>My return requests</h2>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Order</th>
+          <th>Item</th>
+          <th>Status</th>
+          <th>Requested €</th>
+          <th>Approved €</th>
+          <th>Refunded €</th>
+        </tr>
+        {% for r in returns %}
+        <tr>
+          <td>{{ r.id }}</td>
+          <td>{{ r.order.id }}</td>
+          <td>{{ r.order_item.product.name }} × {{ r.order_item.quantity }}</td>
+          <td>{{ r.status }}</td>
+          <td>{{ r.requested_amount }}</td>
+          <td>{{ r.approved_amount|default:"-" }}</td>
+          <td>{{ r.refunded_amount|default:"-" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7">No returns yet.</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</header>
+{% endblock content %}
