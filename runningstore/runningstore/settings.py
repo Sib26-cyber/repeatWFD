@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'store',  # Custom app for the running store
     'cart',
     'payment',
+    'returns',
 ]
 
 MIDDLEWARE = [

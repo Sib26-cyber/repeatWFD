@@ -39,7 +39,8 @@ class Order(models.Model):
     email = models.EmailField(max_length=200, null=True)
     shipping_address = models.TextField(max_length=15000)
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
-    order_date = models.DateTimeField(auto_now_add=True)    
+    order_date = models.DateTimeField(auto_now_add=True)  
+    shipped = models.BooleanField(default=False)  
 
     class Meta:
         verbose_name_plural = "Orders"

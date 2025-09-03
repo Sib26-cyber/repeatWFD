@@ -31,3 +31,6 @@ admin.site.unregister(User)
 
 #Re-register the new way
 admin.site.register(User,UserAdmin)
+
+admin.site.unregister(Return)
+admin.site.unregister(Refund)
